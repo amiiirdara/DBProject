@@ -1,0 +1,15 @@
+create table BusinessPlan(business_plan_id int primary key, national_id int, discount int, foreign key (national_id) references Customer(national_id));
+
+create table Account(account_id int primary key, national_id int, balance bigint, foreign key (national_id) references Customer(national_id));
+
+create table Damage(safebox_id int, contract_time date, time date, description varchar(150), primary key (safebox_id, contract_time), foreign key (safebox_id) references Contract(safebox_id), foreign key (contract_time) references Contract(time));
+
+create table TimePlan(discount int, duration smallint, primary key (discount, duration), check (duration in (3, 6, 12)));
+
+create table OrdinaryCustomer(national_id int primary key, foreign key (national_id) references Customer(national_id));
+
+create table ContractService(safebox_id int, contract_time date, service int, primary key (safebox_id, contract_time, service), foreign key (safebox_id) references Contract(safebox_id), foreign key (contract_time) references Contract(time));
+
+create table CommercialCustomer(national_id int primary key, foreign key (national_id) references Customer(national_id));
+
+create table SafeBoxInfo(safebox_id int, info varchar(50), primary key(safebox_id, info), foreign key (safebox_id) references SafeBox(safebox_id));
