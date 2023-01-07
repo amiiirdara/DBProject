@@ -1,9 +1,8 @@
-create database Phase2;
 
 create table Bank (bank_id int primary key,
                   bank_name varchar(20) not null);
 
-create table Employee (national_id int primary key,
+create table Employee (national_id varchar(10) primary key,
                       bank_id int, 
                       first_name varchar(20) not null, 
                       last_name varchar(20) not null, 
@@ -13,7 +12,7 @@ create table Employee (national_id int primary key,
                       foreign key (bank_id) references Bank(bank_id) on delete cascade on update cascade);
                       
 
-create table Customer (national_id int primary key,
+create table Customer (national_id varchar(10) primary key,
                       bank_id int,
                       first_name varchar(20) not null,
                       last_name varchar(20) not null,
@@ -21,7 +20,7 @@ create table Customer (national_id int primary key,
                       foreign key (bank_id) references Bank(bank_id) on delete cascade on update cascade,
                       check (age >= 18));
                     
-create table Address (national_id int,
+create table Address (national_id varchar(10),
                       address varchar(75),
                       primary key (national_id, address),
                       foreign key (national_id) references Customer(national_id) on delete cascade on update cascade);
@@ -34,7 +33,7 @@ create table Hall (floor int primary key,
                   
                   
 create table SafeBox (safebox_id int primary key,
-                     employee_national_id int,
+                     employee_national_id varchar(10),
                      hall_floor int,
                      price_class int not null,
                      is_cleared boolean,
@@ -50,7 +49,7 @@ create table TimePlan (discount int,
 				
 create table Contract (safebox_id int,
                       time date,
-                      customer_national_id int,
+                      customer_national_id varchar(10),
                       time_plan_discount int,
                       time_plan_duration smallint,
                       cost bigint,
@@ -79,19 +78,19 @@ create table Fiduciary (safebox_id int,
 create table Expiration (safebox_id int,
                         contract_time date,
                         time date,
-                        status smallint,
                         type smallint,
                         primary key (safebox_id, contract_time),
                         foreign key (safebox_id, contract_time) references Contract(safebox_id, time) on delete cascade on update cascade,
-                        check (status in (0, 1)), check (type in (0, 1)));                   
+                        check (type in (0, 1)));   
+
                          
 create table BusinessPlan (business_plan_id int primary key,
-                           national_id int,
+                           national_id varchar(10),
                            discount int not null,
                            foreign key (national_id) references Customer(national_id) on delete cascade on update cascade);
                          
 create table Account (account_id int primary key,
-                      national_id int,
+                      national_id varchar(10),
                       balance bigint,
                       foreign key (national_id) references Customer(national_id) on delete cascade on update cascade);
 
@@ -104,11 +103,11 @@ create table Damage (safebox_id int,
                      foreign key (safebox_id, contract_time) references Contract(safebox_id, time) on delete cascade on update cascade);
                          
                          
-create table OrdinaryCustomer (national_id int primary key,
+create table OrdinaryCustomer (national_id varchar(10) primary key,
                                foreign key (national_id) references Customer(national_id) on delete cascade on update cascade);
                          
 
-create table CommercialCustomer (national_id int primary key,
+create table CommercialCustomer (national_id varchar(10) primary key,
                                  foreign key (national_id) references Customer(national_id) on delete cascade on update cascade);
                          
 
@@ -116,6 +115,3 @@ create table SafeBoxInfo (safebox_id int,
                           info varchar(50),
                           primary key(safebox_id, info),
                           foreign key (safebox_id) references SafeBox(safebox_id) on delete cascade on update cascade);
-                         
-
-
