@@ -1,10 +1,19 @@
+QUERY1:
 
 select  Customer.national_id, (hall1.wall_material * 10 + hall1.number_of_cameras * 5 + (select count(safebox2.safebox_id) 
     from SafeBox as safebox2, Hall as hall2
     where hall2.floor=hall1.floor and safebox2.hall_floor=hall2.floor)) as security_level
         from Customer, Contract, Expiration, SafeBox as safebox1, Hall as hall1
         where Customer.national_id = Contract.customer_national_id
-            and Contract.time = Expiration.contract_time
-            and Expiration.status = 1 
+            and contract.safebox_id not in (select expiration.safebox_id from expiration where expiration.safebox_id=contract.safebox_id and expiration.contract_time=contract.time)
             and Contract.safebox_id = safebox1.safebox_id
             and safebox1.hall_floor = hall1.floor;
+            
+            
+-------------------------------------------------------------------------------------------------------
+
+
+QUERY7:
+
+
+
