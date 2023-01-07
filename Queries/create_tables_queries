@@ -82,6 +82,22 @@ create table Expiration (safebox_id int,
                         primary key (safebox_id, contract_time),
                         foreign key (safebox_id, contract_time) references Contract(safebox_id, time) on delete cascade on update cascade,
                         check (type in (0, 1)));   
+                     
+
+DELIMITER $$
+  CREATE TRIGGER checkEndTime 
+  BEFORE INSERT OR UPDATE ON Expiration
+  FOR EACH ROW
+    BEGIN
+      DECLARE newDuration SMALLINT;
+      SET newDuration = (SELECT Contract.time_plan_duration
+                          FROM Contract as cntrct
+                          WHERE NEW.safebox_id = cntrct.safebox_id and NEW.contract_time = cntrct.time);
+      IF (DATE_ADD(NEW.contract_time, INTERVAL newDuration MONTH) < NEW.time) 
+        THEN SET NEW.time = DATE_ADD(NEW.contract_time, INTERVAL newDuration MONTH);
+      END IF;
+    END; $$    
+DELIMITER ;
 
                          
 create table BusinessPlan (business_plan_id int primary key,
