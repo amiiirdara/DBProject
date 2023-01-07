@@ -1,0 +1,3 @@
+SELECT safebox_id
+from contract
+where cast(CURRENT_TIMESTAMP as date) > dateadd(month, time_plan_duration, time);
