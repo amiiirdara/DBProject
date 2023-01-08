@@ -9,4 +9,5 @@ from employee, hall
 where employee.is_responsible = 1 and
 employee.national_id = hall.employee_national_id and
 hall.security_level >= 3 and
-hall.security_level <= 5;
+hall.security_level <= 5
+ORDER BY RAND();
