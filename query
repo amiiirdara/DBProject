@@ -2,3 +2,11 @@ select Contract.safebox_id
     from Contract, expiration
     where cast(CURRENT_TIMESTAMP as date) > DATE_ADD(contract.time, INTERVAL contract.time_plan_duration MONTH) and
     contract.safebox_id not in (select expiration.safebox_id from expiration where expiration.safebox_id=contract.safebox_id and expiration.contract_time=contract.time);
+
+
+select employee.salary
+from employee, hall
+where employee.is_responsible = 1 and
+employee.national_id = hall.employee_national_id and
+hall.security_level >= 3 and
+hall.security_level <= 5;
