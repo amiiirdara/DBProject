@@ -1,4 +1,5 @@
 
+
 create table Bank (bank_id int primary key,
                   bank_name varchar(20) not null);
 
@@ -17,6 +18,7 @@ create table Customer (national_id varchar(10) primary key,
                       first_name varchar(20) not null,
                       last_name varchar(20) not null,
                       age int,
+                      credit bigint default 0,
                       foreign key (bank_id) references Bank(bank_id) on delete cascade on update cascade,
                       check (age >= 18));
                     
@@ -37,9 +39,9 @@ create table Hall (floor int primary key,
                   
 create table SafeBox (safebox_id int primary key,
                      hall_floor int,
-                     price_class int not null,
-                     is_cleared boolean,
-                     foreign key (hall_floor) references Hall(floor) on delete cascade on update cascade);
+                     price_class int,
+                     foreign key (hall_floor) references Hall(floor) on delete cascade on update cascade,
+                     check (price_class between 1 and 4));
                      
 
 create table TimePlan (discount int,
@@ -63,9 +65,10 @@ create table Contract (safebox_id int,
 
 create table ContractService (safebox_id int,
                               contract_time date,
-                              service int,
+                              service varchar(20),
                               primary key (safebox_id, contract_time, service),
-                              foreign key (safebox_id, contract_time) references Contract(safebox_id, time) on delete cascade on update cascade);
+                              foreign key (safebox_id, contract_time) references Contract(safebox_id, time) on delete cascade on update cascade,
+                              check (service in ("insurance", "guide", "fullservice")));
                               
                               
 create table Fiduciary (safebox_id int,
@@ -79,10 +82,10 @@ create table Fiduciary (safebox_id int,
 create table Expiration (safebox_id int,
                         start_time date,
                         end_time date,
-                        type smallint,
+                        type varchar(9),
                         primary key (safebox_id, start_time),
                         foreign key (safebox_id) references SafeBox(safebox_id) on delete cascade on update cascade,
-                        check (type in (0, 1)));   
+                        check (type in ("discharge", "clearing")));   
                      
                          
 create table BusinessPlan (business_plan_id int primary key,
@@ -116,4 +119,4 @@ create table SafeBoxInfo (safebox_id int,
                           info varchar(50),
                           primary key(safebox_id, info),
                           foreign key (safebox_id) references SafeBox(safebox_id) on delete cascade on update cascade);
-                          
+			  
