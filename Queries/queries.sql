@@ -1,5 +1,6 @@
 
 -- query 1       
+
 select  hall1.security_level, Contract.customer_national_id, safebox1.safebox_id
         from Contract, SafeBox as safebox1, Hall as hall1
         where Contract.safebox_id not in (select Expiration.safebox_id from Expiration where Expiration.safebox_id=Contract.safebox_id and Expiration.start_time=Contract.time)
