@@ -18,7 +18,6 @@ create table Customer (national_id varchar(10) primary key,
                       first_name varchar(20) not null,
                       last_name varchar(20) not null,
                       age int,
-                      credit bigint default 0,
                       foreign key (bank_id) references Bank(bank_id) on delete cascade on update cascade,
                       check (age >= 18));
                     
