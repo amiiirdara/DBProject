@@ -11,3 +11,11 @@ employee.national_id = hall.employee_national_id and
 hall.security_level >= 3 and
 hall.security_level <= 5
 ORDER BY RAND();
+
+
+
+select (Safebox.price_class * 100) - (select TimePlan.discount from TimePlan where TimePlan.duration = 3)
+from Safebox, Hall
+where Safebox.hall_floor = Hall.floor and
+Hall.security_level = 2;
+
