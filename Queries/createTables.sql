@@ -1,5 +1,4 @@
 
-
 create table Bank (bank_id int primary key,
                   bank_name varchar(20) not null);
 
@@ -18,8 +17,10 @@ create table Customer (national_id varchar(10) primary key,
                       first_name varchar(20) not null,
                       last_name varchar(20) not null,
                       age int,
+                      is_commercial int not null,
                       foreign key (bank_id) references Bank(bank_id) on delete cascade on update cascade,
-                      check (age >= 18));
+                      check (age >= 18),
+                      check (is_commercial in (0, 1)));
                     
 create table Address (national_id varchar(10),
                       address varchar(75),
@@ -105,17 +106,8 @@ create table Damage (safebox_id int,
                      primary key (safebox_id, contract_time),
                      foreign key (safebox_id, contract_time) references Contract(safebox_id, time) on delete cascade on update cascade);
                          
-                         
-create table OrdinaryCustomer (national_id varchar(10) primary key,
-                               foreign key (national_id) references Customer(national_id) on delete cascade on update cascade);
-                         
-
-create table CommercialCustomer (national_id varchar(10) primary key,
-                                 foreign key (national_id) references Customer(national_id) on delete cascade on update cascade);
-                         
 
 create table SafeBoxInfo (safebox_id int,
                           info varchar(50),
                           primary key(safebox_id, info),
                           foreign key (safebox_id) references SafeBox(safebox_id) on delete cascade on update cascade);
-			  
