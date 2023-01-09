@@ -22,6 +22,7 @@ DELIMITER $$
 DELIMITER ;
 
 
+
 DELIMITER $$
   CREATE TRIGGER contractExpiration  
     AFTER INSERT ON Expiration
