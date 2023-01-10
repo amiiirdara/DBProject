@@ -1,4 +1,5 @@
 
+
 DELIMITER $$
   CREATE TRIGGER securityLevelProccessor 
     BEFORE INSERT ON Hall FOR EACH ROW
@@ -30,7 +31,8 @@ DELIMITER $$
     BEGIN
          DELETE FROM Contract
          WHERE Contract.safebox_id = (SELECT safebox_id FROM Expiration WHERE safebox_id = Contract.safebox_id) 
-         AND Contract.time = (SELECT start_time FROM Expiration WHERE start_time = Contract.time);
+         AND Contract.time = (SELECT start_time FROM Expiration WHERE start_time = Contract.time)
+         AND Contract.customer_national_id in (SELECT Expiration.customer_national_id FROM Expiration WHERE Expiration.customer_national_id = Contract.customer_national_id);
     END $$
 DELIMITER ;
 
