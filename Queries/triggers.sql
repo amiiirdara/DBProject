@@ -36,3 +36,16 @@ DELIMITER $$
     END $$
 DELIMITER ;
 
+
+DELIMITER $$
+CREATE TRIGGER timePlanDiscountProccessor 
+    BEFORE INSERT ON TimePlan FOR EACH ROW
+        BEGIN
+            IF New.duration = 3 THEN SET NEW.discount = 100;
+            ELSEIF New.duration = 6 THEN SET NEW.discount = 250;
+            ELSE SET NEW.discount = 600;
+            END IF;
+         END; $$    
+DELIMITER ;
+
+
