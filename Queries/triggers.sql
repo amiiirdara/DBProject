@@ -1,7 +1,7 @@
-
+-- Active: 1672947614766@@127.0.0.1@3306@Phase2
 
 DELIMITER $$
-  CREATE TRIGGER securityLevelProccessor 
+  CREATE TRIGGER securityLevelInitial 
     BEFORE INSERT ON Hall FOR EACH ROW
         BEGIN
             DECLARE value_of_security_level INT;
@@ -23,7 +23,6 @@ DELIMITER $$
 DELIMITER ;
 
 
-
 DELIMITER $$
   CREATE TRIGGER contractExpiration  
     AFTER INSERT ON Expiration
@@ -38,14 +37,21 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE TRIGGER timePlanDiscountProccessor 
+CREATE TRIGGER timePlanDiscountInitial 
     BEFORE INSERT ON TimePlan FOR EACH ROW
         BEGIN
-            IF New.duration = 3 THEN SET NEW.discount = 100;
-            ELSEIF New.duration = 6 THEN SET NEW.discount = 250;
-            ELSE SET NEW.discount = 600;
+            IF New.duration = 3 THEN SET NEW.discount = 50;
+            ELSEIF New.duration = 6 THEN SET NEW.discount = 120;
+            ELSE SET NEW.discount = 250;
             END IF;
          END; $$    
 DELIMITER ;
 
 
+DELIMITER $$
+CREATE TRIGGER contractCostInitial 
+    BEFORE INSERT ON Contract FOR EACH ROW
+        BEGIN
+            SET NEW.cost = (SELECT price_class FROM SafeBox where NEW.safebox_id = SafeBox.safebox_id) * 30 * NEW.time_plan_duration - NEW.time_plan_discount;  
+         END; $$    
+DELIMITER ;
