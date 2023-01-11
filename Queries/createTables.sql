@@ -1,4 +1,5 @@
 
+
 create table Bank (bank_id int primary key,
                   bank_name varchar(20) not null);
 
@@ -117,5 +118,4 @@ create table Report (national_id varchar(10),
                      time date,
                      primary key (national_id, time),
                      foreign key (national_id) references Contract(customer_national_id) on delete cascade on update cascade,
-                     foreign key (hall_floor) references Hall(floor) on delete cascade on update cascade);        
-		     
+                     foreign key (hall_floor) references Hall(floor) on delete cascade on update cascade);                          
