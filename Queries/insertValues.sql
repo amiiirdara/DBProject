@@ -1,4 +1,5 @@
 
+
 INSERT INTO Bank VALUES(1, "Saman");
 
 INSERT INTO BusinessPlan VALUES
@@ -9,12 +10,13 @@ INSERT INTO BusinessPlan VALUES
 
 INSERT INTO Customer VALUES
                             ("2283281903", 1, "Farhad", "Esmaeilzadeh", 21, 1, 1),
-                            ("0441065635", 1, "Amirmahdi", "Daraie", 20, 0, null),
+                            ("0441065635", 1, "Amirmahdi", "Daraie", 20, 1, 2),
                             ("2020710234", 1, "Amirreza", "Abootalebi", 20, 1, 1),
                             ("2020599951", 1, "Ardalan", "Sadieh", 22, 0, null),
                             ("1819418189", 1, "Hossein", "Esmaeilzadeh", 60, 1, 2),
                             ("1", 1, "Ali", "Daraie", 51, 1, 3),
-                            ("2384", 1, "Mokhtar", "Abootalebi", 62, 0, null);                          
+                            ("2384", 1, "Mokhtar", "Abootalebi", 62, 0, null),
+                            ("20", 1, "Arshia", "Daadras", 20, 0, null);
 
 INSERT INTO Address VALUES
                             ("2283281903", "KhajeNasirEdinToosi-Rahimian-Pelak7-Zang3"),
@@ -37,15 +39,17 @@ INSERT INTO Hall VALUES
                         (2, 6, 6, NULL, "3"),
                         (3, 8, 12, NULL, "4"),
                         (4, 4, 3, NULL, "5"),
-                        (5, 5, 1, NULL, "6");
+                        (5, 5, 1, NULL, "6");     
 
 INSERT INTO SafeBox VALUES
                             (1, 1, 1),
                             (2, 2, 2),
                             (3, 3, 3),
                             (4, 1, 2),
-                            (5, 5, 4);
-                
+                            (5, 5, 4),
+                            (6, 4, 2),
+                            (7, 1, 1);                             
+
 INSERT INTO TimePlan VALUES
                             (3, null),
                             (6, null),
@@ -58,21 +62,32 @@ INSERT INTO Account VALUES
                             (4, "2020599951", 135000),
                             (5, "1819418189", 250000),
                             (6, "1", 222000),
-                            (7, "2384", 267972);                            
+                            (7, "2384", 267972),
+                            (8, "20", 20),
+                            (9, "20", 40);                                                                          
 
-                            
 INSERT INTO Contract VALUES
-                            (1, "2021-11-11", "0441065635", 6, 250, null),
-                            (1, "2022-08-02", "0441065635", 3, 100, null),
-                            (1, "2022-12-10", "2283281903", 12, 600, null),
-                            (2, "2020-04-23", "0441065635", 6, 250, null),
-                            (2, "2022-07-01", "0441065635", 12, 600, null),
-                            (3, "2018-09-12", "2020710234", 6, 250, null),
-                            (4, "2022-11-11", "0441065635", 6, 250, null),
-                            (5, "2022-11-11", "0441065635", 6, 250, null),
-                            (3, "2022-08-12", "2283281903", 3, 100, null);
+                            (1, "2021-11-11", "0441065635", 6, null),
+                            (1, "2022-12-10", "2283281903", 12, null),
+                            (2, "2020-04-23", "0441065635", 6, null),
+                            (2, "2022-07-01", "0441065635", 12, null),
+                            (3, "2018-09-12", "2020710234", 6, null),
+                            (4, "2022-11-11", "0441065635", 6, null),
+                            (5, "2022-11-11", "0441065635", 6, null),
+                            (3, "2022-08-12", "2283281903", 3, null); 
+
+INSERT INTO Damage VALUES
+                        (1, "2021-11-11", "2022-01-09", "Damaged By C4!"),
+                        (2, "2020-04-23", "2020-06-12", "Bursting Water Pipe!"),
+                        (5, "2022-11-11", "2022-12-21", "A Fuse Blew!");                            
 
 INSERT INTO Expiration VALUES
                                 (1, "2021-11-11", "2022-06-11", "0441065635", "discharge"),
                                 (2, "2022-07-01", "2022-10-01", "0441065635", "clearing"),
                                 (5, "2022-11-11", "2024-05-11", "0441065635", "discharge");
+
+
+INSERT INTO Report VALUES
+                        ("0441065635", 1, "2022-11-19"),
+                        ("2283281903", 1, "2023-01-02");                                               
+
