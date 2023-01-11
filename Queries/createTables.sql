@@ -1,4 +1,3 @@
--- Active: 1672947614766@@127.0.0.1@3306@Phase2
 
 create table Bank (bank_id int primary key,
                   bank_name varchar(20) not null);
@@ -50,21 +49,19 @@ create table SafeBox (safebox_id int primary key,
                      check (price_class between 1 and 4));
                      
 
-create table TimePlan (duration smallint,
+create table TimePlan (duration smallint primary key,
                        discount int,
-                       primary key (duration, discount),
-                       check (duration in (3, 6, 12)));         
+                       check (duration in (3, 6, 12)));                              
 				
 create table Contract (safebox_id int,
                       time date,
                       customer_national_id varchar(10),
                       time_plan_duration smallint,
-                      time_plan_discount int,
                       cost bigint,
                       primary key (safebox_id, time),
                       foreign key (safebox_id) references SafeBox(safebox_id) on delete cascade on update cascade,
                       foreign key (customer_national_id) references Customer(national_id) on delete cascade on update cascade,
-					            foreign key (time_plan_duration, time_plan_discount) references TimePlan(duration, discount) on delete cascade on update cascade);
+					  foreign key (time_plan_duration) references TimePlan(duration) on delete cascade on update cascade);
                       
                       
 
@@ -102,14 +99,23 @@ create table Account (account_id int primary key,
 
                          
 create table Damage (safebox_id int,
-                     contract_time date,
-                     time date not null,
+                     start_time date,
+                     end_time date not null,
                      description varchar(150),
-                     primary key (safebox_id, contract_time),
-                     foreign key (safebox_id, contract_time) references Contract(safebox_id, time) on delete cascade on update cascade);
-                         
+                     primary key (safebox_id, start_time),
+                     foreign key (safebox_id, start_time) references Contract(safebox_id, time) on delete cascade on update cascade);
+                     
+                                                  
 
 create table SafeBoxInfo (safebox_id int,
                           info varchar(50),
                           primary key(safebox_id, info),
                           foreign key (safebox_id) references SafeBox(safebox_id) on delete cascade on update cascade);
+
+create table Report (national_id varchar(10),
+                     hall_floor int,
+                     time date,
+                     primary key (national_id, time),
+                     foreign key (national_id) references Contract(customer_national_id) on delete cascade on update cascade,
+                     foreign key (hall_floor) references Hall(floor) on delete cascade on update cascade);        
+		     
