@@ -1,4 +1,3 @@
--- Active: 1672947614766@@127.0.0.1@3306@Phase2
 
 DELIMITER $$
   CREATE TRIGGER securityLevelInitial 
@@ -49,9 +48,14 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE TRIGGER contractCostInitial 
+CREATE TRIGGER ContractTriggers 
     BEFORE INSERT ON Contract FOR EACH ROW
         BEGIN
-            SET NEW.cost = (SELECT price_class FROM SafeBox where NEW.safebox_id = SafeBox.safebox_id) * 30 * NEW.time_plan_duration - NEW.time_plan_discount;  
+            DECLARE number_of_user_contract INT;
+            SET number_of_user_contract = (SELECT COUNT(Contract.customer_national_id) FROM Contract WHERE Contract.customer_national_id = NEW.customer_national_id);
+            IF number_of_user_contract = 5 then SIGNAL SQLSTATE '45000'   
+                SET MESSAGE_TEXT = 'ERROR: Cannot Insert Contract! \n LIMITATION: More Than 5 Active SafeBox';
+            END IF;   
+            SET NEW.cost = (SELECT price_class FROM SafeBox WHERE NEW.safebox_id = SafeBox.safebox_id) * 30 * NEW.time_plan_duration - (SELECT TimePlan.discount from TimePlan where New.time_plan_duration = TimePlan.duration);  
          END; $$    
 DELIMITER ;
