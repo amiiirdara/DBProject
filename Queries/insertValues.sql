@@ -1,5 +1,4 @@
 
-
 INSERT INTO Bank VALUES(1, "Saman");
 
 INSERT INTO BusinessPlan VALUES
@@ -74,7 +73,11 @@ INSERT INTO Contract VALUES
                             (3, "2018-09-12", "2020710234", 6, null),
                             (4, "2022-11-11", "0441065635", 6, null),
                             (5, "2022-11-11", "0441065635", 6, null),
-                            (3, "2022-08-12", "2283281903", 3, null); 
+                            (3, "2022-08-12", "2283281903", 3, null),
+                            (2, "2022-07-09", "0441065635", 6, null),
+                            (1, "2022-10-10", "2283281903", 3, null),
+                            (2, "2022-01-02", "0441065635", 12, null);
+
 
 INSERT INTO Damage VALUES
                         (1, "2021-11-11", "2022-01-09", "Damaged By C4!"),
@@ -90,4 +93,3 @@ INSERT INTO Expiration VALUES
 INSERT INTO Report VALUES
                         ("0441065635", 1, "2022-11-19"),
                         ("2283281903", 1, "2023-01-02");                                               
-
