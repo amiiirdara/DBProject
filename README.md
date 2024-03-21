@@ -1,5 +1,5 @@
 # DataBase Project
-a Simplified bank app
+A simplified bank app
 
 # Contributers:
 1. Amirmahdi Daraie 99105431
